@@ -1,0 +1,53 @@
+@host = https://localhost:7025
+
+### 1. Отримати всі записи
+GET {{host}}/api/TodoItems
+Accept: application/json
+
+### 2. Додати один запис (з новими полями DueDate і Priority)
+POST {{host}}/api/TodoItems
+Content-Type: application/json
+
+{
+  "name": "Здати ЛР5",
+  "isComplete": false,
+  "dueDate": "2026-11-05",
+  "priority": 1
+}
+
+### 3. Отримати запис за Id
+GET {{host}}/api/TodoItems/1
+Accept: application/json
+
+### 4. Масове додавання (п.5)
+POST {{host}}/api/TodoItems/bulk
+Content-Type: application/json
+
+[
+  { "name": "Купити продукти", "isComplete": false, "dueDate": "2026-10-30", "priority": 2 },
+  { "name": "Сходити в спортзал", "isComplete": false, "dueDate": "2026-10-31", "priority": 3 },
+  { "name": "Підготуватися до заліку", "isComplete": true, "dueDate": "2026-11-10", "priority": 1 }
+]
+
+### 5. Пошук за кількома Id (п.4)
+GET {{host}}/api/TodoItems/search?ids=1&ids=3&ids=4
+Accept: application/json
+
+### 6. Пошук з одним Id - помилка 400
+GET {{host}}/api/TodoItems/search?ids=1
+Accept: application/json
+
+### 7. Оновити запис
+PUT {{host}}/api/TodoItems/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Здати ЛР5",
+  "isComplete": true,
+  "dueDate": "2026-11-05",
+  "priority": 1
+}
+
+### 8. Видалити запис
+DELETE {{host}}/api/TodoItems/2
